@@ -32,7 +32,7 @@ namespace VendingAutomat.ViewModel
                 });
             }
 
-            moneyStack.PropertyChanged += (s,a) => { RaisePropertyChanged(nameof(Amount)); }
+            moneyStack.PropertyChanged += (s, a) => { RaisePropertyChanged(nameof(Amount)); };
         }
 
         
