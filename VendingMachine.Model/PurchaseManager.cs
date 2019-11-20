@@ -16,5 +16,11 @@ namespace VendingMachine.Model
             if (User.GetBanknote(banknote))
                 Automata.InsertBanknote(banknote);
         }
+
+        public void BuyProduct(Product product)
+        {
+            if (Automata.BuyProduct(product))
+                User.AddProduct(product);
+        }
     }
 }

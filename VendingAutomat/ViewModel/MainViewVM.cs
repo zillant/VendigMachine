@@ -37,6 +37,9 @@ namespace VendingAutomat.ViewModel
             _user = _manager.User;
             _automata = _manager.Automata;
 
+            _user.PropertyChanged += (s, a) => { RaisePropertyChanged(nameof(UserSumm)); };
+            _automata.PropertyChanged += (s, a) => { RaisePropertyChanged(nameof(Credit)); };
+
 
             UserWallet = new ObservableCollection<MoneyVM>(_user.UserWallet.Select(ms => new MoneyVM(ms)));
 

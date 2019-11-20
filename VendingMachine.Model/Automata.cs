@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Prism.Mvvm;
 namespace VendingMachine.Model
 {
-    public class Automata
+    public class Automata : BindableBase
     {
         private readonly ObservableCollection<MoneyStack> _automataBank;
         private ObservableCollection<ProductStack> _productsInAutomata;
@@ -18,6 +18,16 @@ namespace VendingMachine.Model
         {
             _automataBank.First(ms => ms.Banknote.Equals(banknote)).PushOne();
             Credit += banknote.Nominal;
+        }
+
+        internal bool BuyProduct(Product product)
+        {
+            if (Credit >= product.Price && _productsInAutomata.First(p => p.Product.Equals(product)).PullOne())
+            {
+                Credit -= product.Price;
+                return true;
+            }
+            return false;
         }
 
         public ReadOnlyObservableCollection<ProductStack> ProductsInAutomata { get; }
