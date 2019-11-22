@@ -22,5 +22,13 @@ namespace VendingMachine.Model
             if (Automata.BuyProduct(product))
                 User.AddProduct(product);
         }
+
+        public void GetChange()
+        {
+            IEnumerable<MoneyStack> change;
+            if (Automata.GetChange(out change))
+                User.AppendMoney(change);
+        }
     }
 }
+

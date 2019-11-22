@@ -85,8 +85,6 @@
       <DependentUpon>AutomatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewVM.cs" />
-    <Compile Include="ViewModel\MoneyVM.cs" />
-    <Compile Include="ViewModel\ProductVM.cs" />
     <Compile Include="View\UserView.xaml.cs">
       <DependentUpon>UserView.xaml</DependentUpon>
     </Compile>

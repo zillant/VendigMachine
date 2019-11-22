@@ -1,4 +1,4 @@
-﻿<Window x:Class="VendingAutomat.MainWindow"
+﻿<Window x:Class="VendingAutomat.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,7 @@
         <!--Шаблон данных для продуктов в корзине/наличии-->
         <DataTemplate DataType="{x:Type vm:MainViewVM}">
             <StackPanel Orientation="Horizontal">
-                <Button Visibility="{Binding IsBuyVisible}" Command="{Binding BuyCommand}">+</Button>
+                <Button Visibility="{Binding IsBuyVisible}" Command="{Binding BuyCommand}" Margin="5">+</Button>
                 <Label Content="{Binding Name}"/>
                 <Label FontWeight="DemiBold" Content="{Binding Price}"/>
                 <Label Content="{Binding Amount}"/>
@@ -19,7 +19,7 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MoneyVM}">
             <StackPanel Orientation="Horizontal">
-                <Button Visibility="{Binding IsInsertVisible}" Command="{Binding InsertCommand}">+</Button>
+                <Button Visibility="{Binding IsInsertVisible}" Command="{Binding InsertCommand}" Margin="5">+</Button>
                 <Image Width="32" Height="32" Source="{Binding Icon}"></Image>
                 <Label Content="{Binding Name}"/>
                 <Label Content="{Binding Amount}"/>

@@ -3,12 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VendingAutomat.View"
+             xmlns:local="clr-namespace:VendingAutomat.ViewModel"
              xmlns:vm="clr-namespace:VendingAutomat.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
+    <Grid  d:DataContext="{d:DesignInstance {x:Type local:MainViewVM}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -16,38 +16,21 @@
         <!--Кошелек-->
         <DockPanel>
             <Label DockPanel.Dock="Top" Content="Наличность пользователя"/>
+
             <!--Сумма-->
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                 <Label Content="Итоговая сумма:"/>
                 <Label Content="{Binding UserSumm}"/>
             </StackPanel>
-            <!--Монеты/Купюры-->
-            <ListBox ItemsSource="{Binding UserWallet}" >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="32" Height="32" Source="{Binding Icon}"></Image>
-                            <Label Content="{Binding Name}"/>
-                            <Label Content="{Binding Amount}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+
+            <!-- Монеты/купюры -->
+            <ListBox ItemsSource="{Binding UserWallet}"/>
         </DockPanel>
+        
         <!--Покупки-->
         <DockPanel Grid.Row="0" Grid.Column="1">
             <Label DockPanel.Dock="Top" Content="Корзина пользователя"/>
-            <ListBox ItemsSource="{Binding UserBuyings}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="{Binding Name}"/>
-                            <Label FontWeight="DemiBold" Content="{Binding BindingPrice}"/>
-                            <Label Content="{Binding Amount}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <ListBox ItemsSource="{Binding UserBuyings}"/>
         </DockPanel>
     </Grid>
 </UserControl>

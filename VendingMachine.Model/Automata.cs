@@ -30,6 +30,31 @@ namespace VendingMachine.Model
             return false;
         }
 
+        internal bool GetChange(out IEnumerable<MoneyStack> change)
+        {
+            change = new List<MoneyStack>();
+            if (Credit == 0) return false;
+
+            var creditToReturn = Credit;
+            var toReturn = new List<MoneyStack>();
+            foreach (var ms in _automataBank.OrderByDescending(m => m.Banknote.Nominal))
+            {
+                if (creditToReturn >= ms.Banknote.Nominal)
+                {
+                    toReturn.Add(new MoneyStack(ms.Banknote, creditToReturn / ms.Banknote.Nominal));
+                    creditToReturn -= (creditToReturn / ms.Banknote.Nominal) * ms.Banknote.Nominal;
+                }
+            }
+            if (creditToReturn != 0) return false; //денег не набирается, ничего не возвращаем
+
+            foreach (var ms in toReturn) //возвращаем
+                for (int i = 0; i < ms.Amount; ++i)  //по одной монетке правда
+                    _automataBank.First(m => Equals(m.Banknote, ms.Banknote)).PullOne();
+            change = toReturn;
+            Credit = 0;
+            return true;
+        }
+
         public ReadOnlyObservableCollection<ProductStack> ProductsInAutomata { get; }
 
         private int credit;

@@ -26,6 +26,14 @@ namespace VendingMachine.Model
             return false;
         }
 
+        internal void AppendMoney(IEnumerable<MoneyStack> change)
+        {
+            foreach (var ms in change)
+                for (int i = 0; i < ms.Amount; ++i)
+                    UserWallet.First(m => Equals(m.Banknote.Nominal, ms.Banknote.Nominal)).PushOne();
+            RaisePropertyChanged(nameof(UserSumm));
+        }
+
         internal void AddProduct(Product product)
         {
             var stack = _userBuyings.FirstOrDefault(b => b.Product == product);
