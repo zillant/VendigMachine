@@ -9,6 +9,17 @@ namespace VendingMachine.Model
 {
     public class Automata : BindableBase
     {
+        public Automata()
+        {
+            _automataBank = new ObservableCollection<MoneyStack>(Banknote.banknotes.Select(b => new MoneyStack(b, 100)));
+
+            AutomataBank = new ReadOnlyObservableCollection<MoneyStack>(_automataBank);
+
+            _productsInAutomata = new ObservableCollection<ProductStack>(Product.Products.Select(p => new ProductStack(p, 100)));
+
+            ProductsInAutomata = new ReadOnlyObservableCollection<ProductStack>(_productsInAutomata);
+        }
+
         private readonly ObservableCollection<MoneyStack> _automataBank;
         private ObservableCollection<ProductStack> _productsInAutomata;
 
@@ -60,15 +71,6 @@ namespace VendingMachine.Model
         private int credit;
         public int Credit { get { return credit; } set { SetProperty(ref credit, value); } }
 
-        public  Automata()
-        {
-            _automataBank = new ObservableCollection<MoneyStack>(Banknote.banknotes.Select(b => new MoneyStack(b, 100)));
-
-            AutomataBank = new ReadOnlyObservableCollection<MoneyStack>(_automataBank);
-
-            _productsInAutomata = new ObservableCollection<ProductStack>(Product.Products.Select(p => new ProductStack(p, 100)));
-
-            ProductsInAutomata = new ReadOnlyObservableCollection<ProductStack>(_productsInAutomata);
-        }
+    
     }
 }

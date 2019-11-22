@@ -11,8 +11,19 @@ namespace VendingMachine.Model
 {
     public class User : BindableBase
     {
+        public User()
+        {
+            // Средства пользователя
+            _userWallet = new ObservableCollection<MoneyStack>(Banknote.banknotes.Select(b => new MoneyStack(b, 10)));
+            UserWallet = new ReadOnlyObservableCollection<MoneyStack>(_userWallet);
+
+            //Продукты пользователя
+            UserBuyings = new ReadOnlyObservableCollection<ProductStack>(_userBuyings);
+        }
+
         public int UserSumm{ get { return 
                     _userWallet.Select(b => b.Banknote.Nominal * b.Amount).Sum(); } }
+        public ReadOnlyObservableCollection<ProductStack> UserBuyings { get; }
 
         public ReadOnlyObservableCollection<MoneyStack> UserWallet { get; }
 
@@ -45,14 +56,8 @@ namespace VendingMachine.Model
 
         private readonly ObservableCollection<MoneyStack> _userWallet;
 
-        public User()
-        {
-            _userWallet = new ObservableCollection<MoneyStack>(Banknote.banknotes.Select(b => new MoneyStack(b, 10)));
-            UserWallet = new ReadOnlyObservableCollection<MoneyStack>(_userWallet);
-            UserBuyings = new ReadOnlyObservableCollection<ProductStack>(_userBuyings);
-        }
 
-        public ReadOnlyObservableCollection<ProductStack> UserBuyings;
+
         private readonly ObservableCollection<ProductStack> _userBuyings = new ObservableCollection<ProductStack>();
     }
 }

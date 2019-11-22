@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VendingAutomat.View"
-        xmlns:vm="clr-namespace:VendingAutomat.ViewModel"
+        xmlns:local="clr-namespace:VendingAutomat.ViewModel"
+        xmlns:v="clr-namespace:VendingAutomat.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <!--Шаблон данных для продуктов в корзине/наличии-->
-        <DataTemplate DataType="{x:Type vm:MainViewVM}">
+    
+        <DataTemplate DataType="{x:Type local:ProductVM}">
             <StackPanel Orientation="Horizontal">
                 <Button Visibility="{Binding IsBuyVisible}" Command="{Binding BuyCommand}" Margin="5">+</Button>
                 <Label Content="{Binding Name}"/>
@@ -17,7 +18,7 @@
                 <Label Content="{Binding Amount}"/>
             </StackPanel>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:MoneyVM}">
+        <DataTemplate DataType="{x:Type local:MoneyVM}">
             <StackPanel Orientation="Horizontal">
                 <Button Visibility="{Binding IsInsertVisible}" Command="{Binding InsertCommand}" Margin="5">+</Button>
                 <Image Width="32" Height="32" Source="{Binding Icon}"></Image>
@@ -28,7 +29,7 @@
     </Window.Resources>
 
     <Window.DataContext>
-        <vm:MainViewVM/>
+        <local:MainViewVM/>
     </Window.DataContext>
     
     
@@ -37,7 +38,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:UserView Margin="10" />
-        <local:AutomatView Grid.Column="1" Margin="10"/>
+        <v:UserView Margin="10" />
+        <v:AutomatView Grid.Column="1" Margin="10"/>
     </Grid>
 </Window>

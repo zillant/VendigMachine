@@ -8,15 +8,6 @@ namespace VendingMachine.Model
 {
     public class Product
     {
-        private Product(string name, int price)
-        {
-            Name = name;
-            Price = price;
-        }
-
-        public string Name { get; }
-        public int Price { get; }
-
         public static IReadOnlyList<Product> Products = new List<Product>()
         {
             new Product("Кофе",12),
@@ -27,6 +18,14 @@ namespace VendingMachine.Model
             new Product("Нечто",670),
         };
 
+        private Product(string name, int price)
+        {
+            Name = name;
+            Price = price;
+        }
+
+        public string Name { get; }
+        public int Price { get; }
 
     }
 }
